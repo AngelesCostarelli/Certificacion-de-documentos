@@ -35,7 +35,7 @@ export default function LandingPage() {
             <div class="card-header">DOCU EXTRIMIAN</div>
             <div class="card-body">
               <h5 class="card-title">
-                BIENVENITOS A LA APPLICACION DE CERTIFICACION DE DOCUMENTOS
+                BIENVENIDO A LA APPLICACION DE CERTIFICACION DE DOCUMENTOS
               </h5>
               <p class="card-text">Logueate con tu usurio para continuar</p>
               <LoginButton />

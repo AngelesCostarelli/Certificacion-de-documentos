@@ -63,12 +63,18 @@ export default function Certificado() {
       borderBottom: "1px",
     },
     subtitle: { margin: "15px", color: "#a1c349" },
+    image: { width: "160px", height: "47px" },
   });
 
   return (
     <PDFViewer style={{ width: "100%", height: "90rem" }}>
       <Document>
         <Page size="A4" style={s.page}>
+          <Image
+            style={s.image}
+            src="https://www.caracteristicas.co/wp-content/uploads/2017/02/perro-1-e1561678907722.jpg"
+          />
+
           <View style={s.section}>
             <Text style={s.title}>CERTIFICADO DE EXISTENCIA</Text>
             <Text style={s.subtitle}>DATOS CRIPTOGRAFICOS</Text>

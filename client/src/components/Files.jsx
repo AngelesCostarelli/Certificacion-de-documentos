@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Web3 from "web3";
 import "./Files.css";
 import { useContextProvider, UserContext } from "./UserContext";
@@ -97,10 +97,37 @@ export default function Files() {
   const [sending, setSending] = useState(false);
   const [receipt, setReceipt] = useState(null);
   const [verify, setVerify] = useState("");
+  const [connect, setConnect] = useState("");
 
   const input1 = useRef(null);
   const input2 = useRef(null);
-
+  useEffect(() => {
+    isConnect();
+  }, [sending]);
+  function isConnect() {
+    const netWorkId = 4;
+    const web3 = new Web3(window.ethereum);
+    // console.log("entra");
+    // window.ethereum.on("chainChanged", (e) => {
+    //   console.log("----");
+    //   if (netWorkId === e) {
+    //     console.log("correct");
+    //   } else {
+    //     console.log("incorrect", e);
+    //   }
+    // });
+    // const web3 = new Web3(node);
+    web3.eth.net
+      .getId()
+      .then((id) => {
+        if (id !== netWorkId) {
+          setConnect("disconnected");
+        } else {
+          setConnect("connected");
+        }
+      })
+      .catch((error) => console.log("Wow. Something went wrong: " + error));
+  }
   function convertToBase64(files) {
     setArchivos(files[0]);
     Array.from(files).forEach((f) => {
@@ -138,23 +165,28 @@ export default function Files() {
   }
 
   function setDocument() {
-    setSending(true);
-    setTransactionHash(null);
-    window.ethereum.enable().then((account) => {
-      const web3 = new Web3(window.ethereum);
-      const document = new web3.eth.Contract(abi, contractAddress);
+    if (connect === "connected") {
+      setSending(true);
+      setTransactionHash(null);
 
-      document.methods
-        .setDocument(sha)
-        .send({ from: account[0] })
-        .on("transactionHash", (transactionHash) =>
-          setTransactionHash(transactionHash)
-        )
-        .on("receipt", (receipt) => {
-          setSending(false);
-          setReceipt(receipt);
-        });
-    });
+      window.ethereum.enable().then((account) => {
+        const web3 = new Web3(window.ethereum);
+        const document = new web3.eth.Contract(abi, contractAddress);
+
+        document.methods
+          .setDocument(sha)
+          .send({ from: account[0] })
+          .on("transactionHash", (transactionHash) =>
+            setTransactionHash(transactionHash)
+          )
+          .on("receipt", (receipt) => {
+            setSending(false);
+            setReceipt(receipt);
+          });
+      });
+    } else if (connect === "disconnected") {
+      alert("Error! Metamask debe estar conectada a la red Rinkeby");
+    }
   }
 
   function verifier() {
@@ -339,13 +371,13 @@ export default function Files() {
             El documento no se encuentra certificado en la blockchain.
           </div>
         ) : null}
-        {/* <>
+        <>
           {data.user ? (
-           
-              <button>certificado</button>
+            <Link to="/certificado">
+              <button>certificado</button>{" "}
             </Link>
           ) : null}
-        </> */}
+        </>
       </div>
     </UserContext.Provider>
   );

@@ -8,7 +8,7 @@ export default function Navbar() {
       <div className="container">
         <Link to="/">
           <img
-            src="https://www.extrimian.com/assets/img/extrimian_logo.svg"
+            src="https://www.extrimian.com/wp-content/uploads/2022/02/extrimian_logo.svg"
             alt=""
             width="160"
             height="47"
