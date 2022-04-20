@@ -2,7 +2,7 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
 
-export const LogOutButton = () => {
+const LogOutButton = () => {
   const { logout } = useAuth0();
   useEffect(() => {
     localStorage.removeItem("authToken");
@@ -10,9 +10,11 @@ export const LogOutButton = () => {
   return (
     <button
       onClick={() => logout({ returnTo: window.location.origin })}
-      class="btn btn-danger btn-sm w-10"
+      className="boton"
     >
       Logout
     </button>
   );
 };
+
+export default LogOutButton;

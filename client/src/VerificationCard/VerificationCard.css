@@ -1,0 +1,9 @@
+.vCard {
+  width: 600px;
+  height: 200px;
+  background-color: #f3eff5;
+  margin: auto;
+  border-radius: 3px;
+  font-style: italic;
+  font-size: small;
+}

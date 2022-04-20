@@ -2,10 +2,11 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
-import Files from "./components/Files";
-import LandingPage from "./components/LandingPage";
-import { ContextProvider } from "./components/UserContext";
-import Certificado from "./components/Certificado";
+
+import Home from "./Pages/Home";
+import LandingPage from "./Pages/LandingPage/LandingPage";
+import Certificado from "./Pages/Certificado";
+import { ContextProvider } from "./Context/UserContext";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <ContextProvider>
         <Routes>
           <Route exact path="/" element={<LandingPage />} />
-          <Route exact path="/home" element={<Files />} />
+          <Route exact path="/home" element={<Home />} />
           <Route exact path="/certificado" element={<Certificado />} />
         </Routes>
       </ContextProvider>
